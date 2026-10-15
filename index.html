@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Questionario sulle preferenze di acquisto</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 60px 20px;
+      color: #222;
+      background-color: #fafafa;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    #fallback {
+      display: none;
+      margin-top: 25px;
+    }
+
+    #manualLink {
+      display: inline-block;
+      padding: 14px 24px;
+      background-color: #333;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 17px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <p>Caricamento del questionario...</p>
+
+  <div id="fallback">
+    <p>Se il questionario non si apre automaticamente:</p>
+    <a id="manualLink">Apri il questionario</a>
+  </div>
+
+  <script>
+
+    const urls = [
+
+      // 1 - Gain | Low | Control
+      "https://docs.google.com/forms/d/e/1FAIpQLSc_Uw4gabmDaEtYXiSHyo7ntij233qLK9NTnICgm9YYHUYDng/viewform?usp=header",
+
+      // 2 - Gain | Low | Social Proof
+      "https://docs.google.com/forms/d/e/1FAIpQLSdqaGIYLoBJF7JfmpID3n_1CMZVNEuEAJ6qNt4fuiI3vEkk6A/viewform?usp=publish-editor",
+
+      // 3 - Gain | High | Control
+      "https://docs.google.com/forms/d/e/1FAIpQLSf8x6-ueQKgyObRb-o1U_F3kOrlWq85oZcwPc0MuodweVWF9Q/viewform?usp=publish-editor",
+
+      // 4 - Gain | High | Social Proof
+      "https://docs.google.com/forms/d/e/1FAIpQLSfX5z9fPXkNmcfJo7qYlRYpAAupl2XAKYbexRi4u52zXvwv3g/viewform?usp=publish-editor",
+
+      // 5 - Loss | Low | Control
+      "https://docs.google.com/forms/d/e/1FAIpQLSeKEjYkFl-9Gew_OB8tW__SXI5ACOCQevfkMzG0zcCWmxzSXA/viewform?usp=publish-editor",
+
+      // 6 - Loss | Low | Social Proof
+      "https://docs.google.com/forms/d/e/1FAIpQLSe2UbxYUG2qDFciqW_wPL2sjnqjJQnVXRrwqlzI42Jl6CSZ9A/viewform?usp=header",
+
+      // 7 - Loss | High | Control
+      "https://docs.google.com/forms/d/e/1FAIpQLSfmbXVnVR3zznigRA1isJV2-wY2KK2k956OkFtdu8otcSnzkA/viewform?usp=publish-editor",
+
+      // 8 - Loss | High | Social Proof
+      "https://docs.google.com/forms/d/e/1FAIpQLScpYKQnhWQvJbHX7Q8-BlqvumWgAaY-ORxWG77SpaImlC5VIA/viewform?usp=header",
+
+      // 9 - Control | Low | Control
+      "https://docs.google.com/forms/d/e/1FAIpQLSfdTgPE1wxS4eB-AC7j1lcET4cBWR2-abf2oyxdrxKPoH88Mw/viewform?usp=publish-editor",
+
+      // 10 - Control | Low | Social Proof
+      "https://docs.google.com/forms/d/e/1FAIpQLScM9br0vbVwdzqgHeHO9vncuQQPh0oazqY13V_xbxUw2GXa5w/viewform?usp=publish-editor",
+
+      // 11 - Control | High | Control
+      "https://docs.google.com/forms/d/e/1FAIpQLSfxiKz03gWx_gRJf6ysHnTGign3jnDGPcOjKWSNvsoVO6CM4w/viewform?usp=publish-editor",
+
+      // 12 - Control | High | Social Proof
+      "https://docs.google.com/forms/d/e/1FAIpQLSdVrtuHGDYFG41FV8D-1qJ1WmjxUfeIQHeBkX0bM1xg4UR_lw/viewform?usp=publish-editor"
+
+    ];
+
+    const assignmentKey = "esperimento_tesi_assignment_v1";
+
+    let selectedIndex = sessionStorage.getItem(assignmentKey);
+
+    if (
+      selectedIndex === null ||
+      Number(selectedIndex) < 0 ||
+      Number(selectedIndex) >= urls.length
+    ) {
+
+      selectedIndex = Math.floor(Math.random() * urls.length);
+
+      sessionStorage.setItem(
+        assignmentKey,
+        selectedIndex.toString()
+      );
+    }
+
+    const selectedUrl = urls[Number(selectedIndex)];
+
+    document.getElementById("manualLink").href = selectedUrl;
+
+    setTimeout(function() {
+      window.location.replace(selectedUrl);
+    }, 400);
+
+    setTimeout(function() {
+      document.getElementById("fallback").style.display = "block";
+    }, 2500);
+
+  </script>
+
+</body>
+</html>
